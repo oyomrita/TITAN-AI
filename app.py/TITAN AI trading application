@@ -1,0 +1,98 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+from datetime import datetime
+
+st.set_page_config(
+page_title="TITAN AI Trading Robot",
+page_icon="📈",
+layout="wide"
+)
+
+st.title("🚀 TITAN AI — Automated Trading Robot")
+st.caption("AI-assisted market forecasting and paper trading")
+
+Mandatory safety settings
+
+PAPER_TRADING = True
+LIVE_TRADING = False
+REAL_MONEY_TRADING = False
+BROKER_ORDERS_ENABLED = False
+
+st.success("SAFETY STATUS: Paper trading only")
+st.write("Live trading: OFF")
+st.write("Real-money trading: OFF")
+st.write("Broker order submission: BLOCKED")
+
+st.divider()
+
+st.header("📊 Forecast Future")
+
+symbol = st.selectbox(
+"Select market",
+["EUR/USD", "GBP/USD", "USD/JPY", "XAU/USD", "BTC/USD"]
+)
+
+horizon = st.selectbox(
+"Forecast horizon",
+["5 minutes", "15 minutes", "1 hour", "4 hours", "24 hours"]
+)
+
+st.info(
+"Connect a verified market-data provider and validated forecasting "
+"model to generate genuine market forecasts. No live market prediction "
+"is fabricated by this initial version."
+)
+
+st.write("Selected instrument:", symbol)
+st.write("Forecast horizon:", horizon)
+
+st.divider()
+
+st.header("🛡️ Risk Management")
+
+starting_balance = st.number_input(
+"Paper account balance ($)",
+min_value=10.0,
+value=200.0,
+step=10.0
+)
+
+risk_percent = st.number_input(
+"Risk per trade (%)",
+min_value=0.1,
+max_value=1.0,
+value=1.0,
+step=0.1
+)
+
+max_open_trades = st.number_input(
+"Maximum open paper trades",
+min_value=1,
+max_value=5,
+value=5
+)
+
+daily_loss_limit = starting_balance * 0.02
+
+col1, col2, col3 = st.columns(3)
+col1.metric("Paper balance", f"${starting_balance:.2f}")
+col2.metric("Risk per trade", f"{risk_percent:.1f}%")
+col3.metric("Daily loss limit", f"${daily_loss_limit:.2f}")
+
+st.divider()
+
+st.header("🧪 Paper Trading")
+
+st.write("Paper trading engine status: Not yet connected.")
+st.write("Historical backtesting: Not yet implemented.")
+st.write("Broker connection: Not connected.")
+st.write("Forecast validation: Not yet implemented.")
+
+st.warning(
+"This is the initial dashboard foundation, not a completed trading "
+"robot. Market data, forecasting, trade simulation, persistence, "
+"and backtesting must be implemented and tested separately."
+)
+
+st.caption(f"Dashboard opened: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
